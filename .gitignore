@@ -1,0 +1,4 @@
+goldrabbits
+*.log
+*.out 
+*.o
