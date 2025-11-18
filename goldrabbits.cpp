@@ -41,8 +41,17 @@ int main(int argc, char* argv[]) {
 
             else {
                 // Calculate fibo, store as static map
-                int result = goldRabbits(n);
-                cout << "fibo(" << n << "): \t" << result << endl;
+                cout << "fibo(" << n << "): \t";
+                
+                // try-catch is needed for math logic errors
+                try {
+                    int result = goldRabbits(n);
+                    cout << result << endl;
+                }
+                catch (string error) {
+                    // Catch overflow
+                    cout << error << endl;
+                }
             }
         }
 
@@ -79,11 +88,17 @@ int goldRabbits(int n) {
         // Return 1 if found, 0 if not
         return fiboMap[n];
     }
-    
-    // Store fiboMap before returning
-    fiboMap[n] = goldRabbits(n - 1) + goldRabbits(n - 2);
 
-    return fiboMap[n];
+    // Store fiboMap before returning
+    int result = goldRabbits(n - 1) + goldRabbits(n - 2);
+
+    // Check if result is negative (for overflow)
+    if (result < 0) {
+        throw string("overflow error at fib(" + to_string(n) + "):" + to_string(result));
+    }
+
+    fiboMap[n] = result;
+    return result;
 }
 
 
