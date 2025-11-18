@@ -34,16 +34,15 @@ int main(int argc, char* argv[]) {
             }
 
             if (n == -1) {
-                // Logic for map printing
+                // Execute fuction goldRabbits to print map
                 cout << "fibo(-1):" << endl;
-                cout << "Fibo Map contents:" << endl;
-                cout << "Print Map Here (to-do)" << endl;
-                cout << "end of Fibo map" << endl;
+                goldRabbits(-1);
             }
 
             else {
-                // Calculate fibo
-                cout << "fibo(" << n << "): \t" << goldRabbits(n) << endl;
+                // Calculate fibo, store as static map
+                int result = goldRabbits(n);
+                cout << "fibo(" << n << "): \t" << result << endl;
             }
         }
 
@@ -55,7 +54,36 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-// Placeholder function
 int goldRabbits(int n) {
-    return 1;
+    static map<int, int> fiboMap;
+
+    // Print the map
+    if (n == -1) {
+        cout << "Fibo Map contents:" << endl;
+        // Iterate through map, print key:value pairs
+        for (auto const& [key, val] : fiboMap) {
+            cout << key << ":" << val << endl;
+        }
+        cout << "end of Fibo map" << endl;
+        return 0;
+    }
+
+    // Add base cases to the map
+    if (n == 0 || n == 1) {
+        fiboMap[n] =1;
+        return 1;
+    }
+
+    // Check if value 'n' was already calculated
+    if (fiboMap.count(n)) {
+        // Return 1 if found, 0 if not
+        return fiboMap[n];
+    }
+    
+    // Store fiboMap before returning
+    fiboMap[n] = goldRabbits(n - 1) + goldRabbits(n - 2);
+
+    return fiboMap[n];
 }
+
+
