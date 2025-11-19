@@ -79,7 +79,7 @@ INTEGER goldRabbits(INTEGER n) {
         for (auto const& [key, val] : fiboMap) {
             cout << key << ":" << val << endl;
         }
-        cout << "end of Fibo map" << endl;
+        cout << "end of Fibo map\n" << endl;
         return 0;
     }
 
