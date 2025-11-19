@@ -14,19 +14,25 @@
 
 using namespace std;
 
-int goldRabbits(int n);
+// Macro (defines integer type)
+#define INTEGER int
+// #define INTEGER short
+// #define INTEGER long long
+
+INTEGER goldRabbits(INTEGER n);
 
 int main(int argc, char* argv[]) {
     // Loop through CLI
     // Starts at i=1
     for (int i = 1; i < argc; ++i) {
         string arg = argv[i];
-        int n;
+        INTEGER n;
 
         try {
             // Convert argument to integer
             size_t pos;
-            n = stoi(arg, &pos);
+            long long inputVal = stoll(arg, &pos);
+            n = (INTEGER)inputVal;
 
             // Check if string is a number
             if (pos < arg.length()) {
@@ -45,7 +51,7 @@ int main(int argc, char* argv[]) {
                 
                 // try-catch is needed for math logic errors
                 try {
-                    int result = goldRabbits(n);
+                    INTEGER result = goldRabbits(n);
                     cout << result << endl;
                 }
                 catch (string error) {
@@ -63,8 +69,8 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-int goldRabbits(int n) {
-    static map<int, int> fiboMap;
+INTEGER goldRabbits(INTEGER n) {
+    static map<INTEGER, INTEGER> fiboMap;
 
     // Print the map
     if (n == -1) {
@@ -90,7 +96,7 @@ int goldRabbits(int n) {
     }
 
     // Store fiboMap before returning
-    int result = goldRabbits(n - 1) + goldRabbits(n - 2);
+    INTEGER result = goldRabbits(n - 1) + goldRabbits(n - 2);
 
     // Check if result is negative (for overflow)
     if (result < 0) {
